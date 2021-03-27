@@ -13,19 +13,27 @@ export class EmployeeService {
   constructor(private http: HttpClient) { }
 
   //Gets
-  getEmployees(): Observable<Employee[]>{
+  public getEmployees(): Observable<Employee[]>{
     return this.http.get<Employee[]>(`${this.apiService}/employee/all`)
   }
 
-  getEmployeeById(id:number){
+  public getEmployeeById(id:number){
     return this.http.get(`${this.apiService}/find/${id}`)
   }
 
 
   //Posts
-  createEmployee(employee: Employee){
-    return this.http.post(`${this.apiService}/add`, employee)
-    .subscribe(() => { console.log(employee) })
+  public createEmployee(employee: Employee): Observable<Employee>{
+    return this.http.post<Employee>(`${this.apiService}/employee/add`, employee)
+  }
+
+  public updateEmployee(employee: Employee): Observable<Employee>{
+    return this.http.put<Employee>(`${this.apiService}/employee/update`, employee)
+  }
+
+  //Delete
+  public deleteEmployee(id: number): Observable<void>{
+    return this.http.delete<void>(`${this.apiService}/employee/delete/${id}`)
   }
 
 
