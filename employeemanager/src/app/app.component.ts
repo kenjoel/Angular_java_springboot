@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Form, NgForm } from '@angular/forms';
 import { Button, error } from 'protractor';
 import { Employee } from './employee';
 import { EmployeeService } from "./employee.service";
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
     )
   }
 
-  public openModal(employee: Employee, mode: string): void{
+  public openModal(employee: Employee|null, mode: string): void{
     const container = document.getElementById("main-container");
 
     const button = document.createElement("button")
@@ -48,8 +49,11 @@ export class AppComponent implements OnInit {
 
     container?.appendChild(button);
     button.click();
+  }
 
-   
+
+  public onAddEmployee(form: NgForm): void{
+
   }
 
 
