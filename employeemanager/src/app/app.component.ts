@@ -13,6 +13,7 @@ import { EmployeeService } from "./employee.service";
 export class AppComponent implements OnInit {
 
   public employees: Employee[] = [];
+  editEmployee: Employee | undefined;
 
   constructor(private service: EmployeeService){}
 
@@ -26,7 +27,7 @@ export class AppComponent implements OnInit {
     )
   }
 
-  public openModal(employee: Employee|null, mode: string): void{
+  public openModal(employee: Employee| undefined, mode: string): void{
     const container = document.getElementById("main-container");
 
     const button = document.createElement("button")
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
     }
 
     if(mode === "edit"){
+      this.editEmployee = employee
       button.setAttribute("data-target", "#updateEmployeeModal")
     }
 
@@ -52,15 +54,32 @@ export class AppComponent implements OnInit {
   }
 
 
-  public onAddEmployee(form: NgForm): void{
-    this.service.createEmployee(form.value)
+  public onAddEmployee(addForm: NgForm): void{
+    document.getElementById("add-employee-form")?.click();
+    this.service.createEmployee(addForm.value)
     .subscribe(
-      (res: Employee) => {},
+      (res: Employee) => {
+        console.log(res)
+        this.getEmployees()
+      },
       (err: HttpErrorResponse) => {
-        alert(err)
+        alert(err.message)
       }
       )
+  }
 
+
+  public letsUpdate(employee: Employee):void{
+    this.service.updateEmployee(employee)
+    .subscribe(
+      (res: Employee) => {
+        console.log(res)
+        this.getEmployees()
+      },
+      (err: HttpErrorResponse) => {
+        alert(err.message)
+      }
+      )
   }
 
 
