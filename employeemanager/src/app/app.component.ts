@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     )
   }
 
-  public onOpenModal(employee: Employee, mode: string): void{
+  public OpenModal(employee: Employee, mode: string): void{
     const container = document.getElementById("main-container");
 
     const button = document.createElement("button")
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
 
     container?.appendChild(button);
     button.click();
-    
+
    
   }
 
