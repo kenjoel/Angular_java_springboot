@@ -53,6 +53,13 @@ export class AppComponent implements OnInit {
 
 
   public onAddEmployee(form: NgForm): void{
+    this.service.createEmployee(form.value)
+    .subscribe(
+      (res: Employee) => {},
+      (err: HttpErrorResponse) => {
+        alert(err)
+      }
+      )
 
   }
 
