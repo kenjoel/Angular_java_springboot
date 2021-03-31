@@ -29,6 +29,23 @@ export class AppComponent implements OnInit {
     )
   }
 
+  public searchEmployee(key: string){
+    const results : Employee[] = []
+
+    for(var person of this.employees){
+      if(person.name.toLowerCase().indexOf(key.toLowerCase()) != -1){
+        results.push(person)
+      }
+    }
+    this.employees = results
+
+    if(results.length === 0 || !key){
+      this.getEmployees();
+    }
+  }
+
+
+
   public openModal(employee: Employee| undefined, mode: string): void{
     const container = document.getElementById("main-container");
 
