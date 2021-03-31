@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
 
   public employees: Employee[] = [];
   editEmployee: Employee | undefined;
+  
+  fireEmployee: Employee | undefined;
 
   constructor(private service: EmployeeService){}
 
@@ -46,6 +48,7 @@ export class AppComponent implements OnInit {
 
 
     if(mode === "delete"){
+      this.fireEmployee = employee
       button.setAttribute("data-target", "#deleteEmployeeModal")
     }
 
@@ -66,6 +69,7 @@ export class AppComponent implements OnInit {
         alert(err.message)
       }
       )
+      addForm.reset();  
   }
 
 
@@ -82,6 +86,18 @@ export class AppComponent implements OnInit {
       )
   }
 
+
+  public deteleEmployee(id:number | undefined): void{
+    this.service.deleteEmployee(id!)
+    .subscribe(() => {
+      alert("Employee Successfully fired")
+      this.getEmployees();
+    },
+    (err: HttpErrorResponse) => {
+      alert(err.message)
+    }
+    )
+  }
 
   ngOnInit(): void {
     this.getEmployees()
